@@ -13,7 +13,7 @@ require_once "scraping.php";
   <link rel="stylesheet" href="src/bootstrap/font-awesome.min.css">
   <link rel="stylesheet" href="src/style.css">
   <!-- JS -->
-  <script src="src/bootstrap/jquery-3.1.0.slim.min.js"></script>
+  <script src="src/bootstrap/jquery-3.1.1.min.js"></script>
   <script src="src/bootstrap/bootstrap.min.js"></script>
   <script src="src/jquery.lazyload.js"></script>
   <script src="src/script.js"></script>
@@ -48,9 +48,13 @@ require_once "scraping.php";
     <?php $url = $_GET['url'] ?: null;
     if( $url ): ?>
     <?php
-    foreach(Scraping::collect($url) as $img) {
-      echo "<img data-original='${img}' class='lazy thumbnail col-md-6 col-xs-12'>";
-    }
+    $scraping = new Scraping;
+    $imgs = $scraping->collect($url);
+    if($imgs != null)
+      foreach($imgs as $img) {
+        echo "<img data-original='${img}' class='lazy thumbnail col-xs-12 col-sm-6 col-md-4'>";
+      }
+    else echo "NULLだよ〜";
     ?>
 
     <?php else: ?>
