@@ -10,3 +10,8 @@ body {
     width: 100%;
   }
 }
+
+.paging {
+  display: inline;
+  width: 100%;
+}

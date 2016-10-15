@@ -9,12 +9,12 @@ require_once "scraping.php";
   <title>jsTest</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
   <!-- CSS -->
-  <link rel="stylesheet" href="src/bootstrap/bootstrap.min.css">
-  <link rel="stylesheet" href="src/bootstrap/font-awesome.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/paper/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
   <link rel="stylesheet" href="src/style.css">
   <!-- JS -->
-  <script src="src/bootstrap/jquery-3.1.1.min.js"></script>
-  <script src="src/bootstrap/bootstrap.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <script src="src/jquery.lazyload.js"></script>
   <script src="src/script.js"></script>
 </head>
@@ -46,16 +46,38 @@ require_once "scraping.php";
 
   <div class="container">
     <?php $url = $_GET['url'] ?: null;
+    $page = $_GET['page'] ?: 1;
     if( $url ): ?>
     <?php
     $scraping = new Scraping;
-    $imgs = $scraping->collect($url);
+    $imgs = $scraping->collect($url, $page);
     if($imgs != null)
-      foreach($imgs as $img) {
+      foreach(array_slice($imgs, 0, count($imgs)-1) as $img) {
+      //foreach($imgs as $img) {
         echo "<img data-original='${img}' class='lazy thumbnail col-xs-12 col-sm-6 col-md-4'>";
       }
     else echo "NULLだよ〜";
     ?>
+    <div class="paging">
+      <nav aria-label="Page navigation">
+        <ul class="pagination">
+          <li>
+            <a href="#" aria-label="Previous">
+              <span aria-hidden="true">&laquo;</span>
+            </a>
+          </li>
+          <?php $pages = (int)$imgs[count($imgs)-1] / $scraping->limit + 1;
+          for($i = 1; $i < $pages; $i++): ?>
+          <li class="<?php if($i == $_GET['page']) echo 'active'; ?>"><a href="<?php echo $scraping->paging($_GET['url'], $i); ?>"><?php echo $i; ?></a></li>
+          <?php endfor; ?>
+          <li>
+            <a href="#" aria-label="Next">
+              <span aria-hidden="true">&raquo;</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </div>
 
     <?php else: ?>
     <div class="jumbotron" id="about">
