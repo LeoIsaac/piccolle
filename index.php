@@ -68,7 +68,7 @@ require_once "scraping.php";
           </li>
           <?php $pages = (int)$imgs[count($imgs)-1] / $scraping->limit + 1;
           for($i = 1; $i < $pages; $i++): ?>
-          <li class="<?php if($i == $_GET['page']) echo 'active'; ?>"><a href="<?php echo $scraping->paging($_GET['url'], $i); ?>"><?php echo $i; ?></a></li>
+          <li class="<?php if($i == $page) echo 'active'; ?>"><a href="<?php echo $scraping->paging($url, $i); ?>"><?php echo $i; ?></a></li>
           <?php endfor; ?>
           <li>
             <a href="#" aria-label="Next">
