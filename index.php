@@ -61,17 +61,19 @@ require_once "scraping.php";
     <div class="paging">
       <nav aria-label="Page navigation">
         <ul class="pagination">
-          <li>
-            <a href="#" aria-label="Previous">
+          <li class="<?php if($page == 1) echo 'disabled' ?>">
+            <a href="<?php if($page != 1) echo $scraping->paging($url, $page-1); ?>" aria-label="Previous">
               <span aria-hidden="true">&laquo;</span>
             </a>
           </li>
-          <?php $pages = (int)$imgs[count($imgs)-1] / $scraping->limit + 1;
-          for($i = 1; $i < $pages; $i++): ?>
-          <li class="<?php if($i == $page) echo 'active'; ?>"><a href="<?php echo $scraping->paging($url, $i); ?>"><?php echo $i; ?></a></li>
+          <?php $pages = floor((int)$imgs[count($imgs)-1] / $scraping->limit) + 1;
+          for($i = 1; $i <= $pages; $i++): ?>
+          <li class="<?php if($i == $page) echo 'active'; ?>">
+            <a href="<?php echo $scraping->paging($url, $i); ?>"><?php echo $i; ?></a>
+          </li>
           <?php endfor; ?>
-          <li>
-            <a href="#" aria-label="Next">
+          <li class="<?php if($page == $pages) echo 'disabled'; ?>">
+            <a href="<?php if($page != $pages) echo $scraping->paging($url, $page+1); ?>" aria-label="Next">
               <span aria-hidden="true">&raquo;</span>
             </a>
           </li>

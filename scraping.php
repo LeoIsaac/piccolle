@@ -1,7 +1,7 @@
 <?php
 
 class Scraping {
-  public $limit = 20;
+  public $limit = 50;
 
   // スクレイピングして画像の配列を返す
   public function collect($url, $page) {
