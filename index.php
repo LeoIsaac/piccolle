@@ -1,5 +1,7 @@
 <?php
 require_once "scraping.php";
+$url = $_GET['url'] ?: null;
+$page = $_GET['page'] ?: 1;
 ?>
 
 <!DOCTYPE html>
@@ -34,7 +36,7 @@ require_once "scraping.php";
 		<div id="navbar" class="navbar-collapse collapse">
 			<form class="navbar-form navbar-right" action="./">
 				<div class="input-group">
-					<input type="url" class="form-control" name="url" placeholder="URL" value="<?php echo $_GET['url']; ?>" autocomplete="off">
+					<input type="url" class="form-control" name="url" placeholder="URL" value="<?php echo $url; ?>" autocomplete="off">
 					<span class="input-group-btn">
 						<button type="submit" class="btn btn-default">収集</button>
 					</span>
@@ -45,10 +47,7 @@ require_once "scraping.php";
 	</nav>
 
   <div class="container">
-    <?php $url = $_GET['url'] ?: null;
-    $page = $_GET['page'] ?: 1;
-    if( $url ): ?>
-    <?php
+    <?php if( $url ):
     $scraping = new Scraping;
     $imgs = $scraping->collect($url, $page);
     if($imgs != null)
