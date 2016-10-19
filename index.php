@@ -25,26 +25,26 @@ $page = $_GET['page'] ?: 1;
   <nav class="navbar navbar-default navbar-fixed-top">
     <div class="navbar-header">
       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="true" aria-controls="navbar">
-    		<span class="sr-only">Toggle navigation</span>
-				<span class="icon-bar"></span>
-				<span class="icon-bar"></span>
-				<span class="icon-bar"></span>
-			</button>
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
       <a class="navbar-brand" href="./">ぴくこれ</a>
     </div><!-- /.navbar-header -->
 
-		<div id="navbar" class="navbar-collapse collapse">
-			<form class="navbar-form navbar-right" action="./">
-				<div class="input-group">
-					<input type="url" class="form-control" name="url" placeholder="URL" value="<?php echo $url; ?>" autocomplete="off">
-					<span class="input-group-btn">
-						<button type="submit" class="btn btn-default">収集</button>
-					</span>
-					<span id="count"></span>
-				</div>
-			</form>
-		</div><!--/.nav-collapse -->
-	</nav>
+    <div id="navbar" class="navbar-collapse collapse">
+      <form class="navbar-form navbar-right" action="./">
+        <div class="input-group">
+          <input type="url" class="form-control" name="url" placeholder="URL" value="<?php echo $url; ?>" autocomplete="off">
+          <span class="input-group-btn">
+            <button type="submit" class="btn btn-default">収集</button>
+          </span>
+          <span id="count"></span>
+        </div>
+      </form>
+    </div><!--/.nav-collapse -->
+  </nav>
 
   <div class="container">
     <?php if( $url ):
@@ -89,17 +89,17 @@ $page = $_GET['page'] ?: 1;
     <?php endif; ?>
 
     <div id="detail" class="modal fade" tabindex="-1">
-			<div class="modal-dialog modal-sm">
-				<div class="modal-content">
-					<div class="modal-body">
-						<img class="img-responsive">
-						<button type="button" id="favorite" class="btn btn-primary">お気に入り</button>
-						<button type="button" id="hate" class="btn btn-warning">嫌い</button>
-						<button type="button" id="nothing" class="btn btn-default" data-dismiss="modal">何もしない</button>
-					</div><!-- /.mordal-body -->
-				</div><!-- /.modal-content -->
-			</div><!-- /.modal-dialog -->
-		</div><!-- /#detail -->
+      <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+          <div class="modal-body">
+            <img class="img-responsive">
+            <button type="button" id="favorite" class="btn btn-primary">お気に入り</button>
+            <button type="button" id="hate" class="btn btn-warning">嫌い</button>
+            <button type="button" id="nothing" class="btn btn-default" data-dismiss="modal">何もしない</button>
+          </div><!-- /.mordal-body -->
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /#detail -->
   </div><!-- /.container -->
 </body>
 </html>
