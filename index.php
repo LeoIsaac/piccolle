@@ -52,7 +52,6 @@ $page = $_GET['page'] ?: 1;
     $imgs = $scraping->collect($url, $page);
     if($imgs != null)
       foreach(array_slice($imgs, 0, count($imgs)-1) as $img) {
-      //foreach($imgs as $img) {
         echo "<img data-original='${img}' class='lazy thumbnail col-xs-12 col-sm-6 col-md-4'>";
       }
     else echo "NULLだよ〜";
@@ -65,7 +64,7 @@ $page = $_GET['page'] ?: 1;
               <span aria-hidden="true">&laquo;</span>
             </a>
           </li>
-          <?php $pages = floor((int)$imgs[count($imgs)-1] / $scraping->limit) + 1;
+          <?php $pages = ceil((int)$imgs[count($imgs)-1] / $scraping->limit);
           for($i = 1; $i <= $pages; $i++): ?>
           <li class="<?php if($i == $page) echo 'active'; ?>">
             <a href="<?php echo $scraping->paging($url, $i); ?>"><?php echo $i; ?></a>

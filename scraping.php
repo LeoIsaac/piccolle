@@ -19,7 +19,6 @@ class Scraping {
         $pic++;
         if( $pic <= ($page-1) * $this->limit || $count >= $this->limit ) continue;
         $ret[] = $array[0];
-        //$ret[] = $pic;
         $count++;
       }
     }
