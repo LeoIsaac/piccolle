@@ -1,7 +1,7 @@
 <?php
 require_once "scraping.php";
-$url = $_GET['url'] ?: null;
-$page = $_GET['page'] ?: 1;
+$url = isset($_GET['url']) ? $_GET['url'] : null;
+$page = isset($_GET['page']) ? $_GET['page'] : 1;
 ?>
 
 <!DOCTYPE html>
