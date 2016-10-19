@@ -82,10 +82,10 @@ $page = $_GET['page'] ?: 1;
 
     <?php else: ?>
     <div class="jumbotron" id="about">
-  		<h3>About ぴくこれ</h3>
-  		<p>任意のウェブページ上の画像だけを取ってきて表示するウェブアプリです。使い方は簡単で、画像を取ってきたいURLを入力欄に入れて「Collection」をクリックするだけ！それだけで画像だけ取ってきて表示します。</p>
-  		<p>製作者: <a href="https://twitter.com/_leo_isaac" target="_blank">Isaac</a></p>
-  	</div><!-- /.jumbotron -->
+      <h3>About ぴくこれ</h3>
+      <p>任意のウェブページ上の画像だけを取ってきて表示するウェブアプリです。使い方は簡単で、画像を取ってきたいURLを入力欄に入れて「Collection」をクリックするだけ！それだけで画像だけ取ってきて表示します。</p>
+      <p>製作者: <a href="https://twitter.com/_leo_isaac" target="_blank">Isaac</a></p>
+    </div><!-- /.jumbotron -->
     <?php endif; ?>
 
     <div id="detail" class="modal fade" tabindex="-1">
