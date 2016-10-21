@@ -15,10 +15,11 @@ class Scraping {
     $count = 0;
     foreach($imgs as $img) {
       $array = (array)$img;
-      if(preg_match("/^http.*\.(jpg|png)$/", $array[0])) {
+      $src = $array['@attributes']['href'];
+      if(preg_match("/^https?:\/\/(www\.)?(2ch.io\/|pinktower.com\/\?https?:\/\/)?(.*\.(jpg|png))$/", $src, $matches)) {
         $pic++;
         if( $pic <= ($page-1) * $this->limit || $count >= $this->limit ) continue;
-        $ret[] = $array[0];
+        $ret[] = "http://" . $matches[3];
         $count++;
       }
     }
