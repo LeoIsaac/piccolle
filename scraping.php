@@ -28,7 +28,7 @@ class Scraping {
   }
 
   public function paging($url, $page) {
-    return "/?url=" . urlencode($url) . "&page=${page}";
+    return "?url=" . urlencode($url) . "&page=${page}";
   }
 }
 
