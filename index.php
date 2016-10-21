@@ -1,7 +1,7 @@
 <?php
 require_once "scraping.php";
-$url = $_GET['url'] ?: null;
-$page = $_GET['page'] ?: 1;
+$url = isset($_GET['url']) ? $_GET['url'] : null;
+$page = isset($_GET['page']) ? $_GET['page'] : 1;
 ?>
 
 <!DOCTYPE html>
@@ -25,26 +25,26 @@ $page = $_GET['page'] ?: 1;
   <nav class="navbar navbar-default navbar-fixed-top">
     <div class="navbar-header">
       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="true" aria-controls="navbar">
-    		<span class="sr-only">Toggle navigation</span>
-				<span class="icon-bar"></span>
-				<span class="icon-bar"></span>
-				<span class="icon-bar"></span>
-			</button>
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
       <a class="navbar-brand" href="./">ぴくこれ</a>
     </div><!-- /.navbar-header -->
 
-		<div id="navbar" class="navbar-collapse collapse">
-			<form class="navbar-form navbar-right" action="./">
-				<div class="input-group">
-					<input type="url" class="form-control" name="url" placeholder="URL" value="<?php echo $url; ?>" autocomplete="off">
-					<span class="input-group-btn">
-						<button type="submit" class="btn btn-default">収集</button>
-					</span>
-					<span id="count"></span>
-				</div>
-			</form>
-		</div><!--/.nav-collapse -->
-	</nav>
+    <div id="navbar" class="navbar-collapse collapse">
+      <form class="navbar-form navbar-right" action="./">
+        <div class="input-group">
+          <input type="url" class="form-control" name="url" placeholder="URL" value="<?php echo $url; ?>" autocomplete="off">
+          <span class="input-group-btn">
+            <button type="submit" class="btn btn-default">収集</button>
+          </span>
+          <span id="count"></span>
+        </div>
+      </form>
+    </div><!--/.nav-collapse -->
+  </nav>
 
   <div class="container">
     <?php if( $url ):
@@ -52,7 +52,6 @@ $page = $_GET['page'] ?: 1;
     $imgs = $scraping->collect($url, $page);
     if($imgs != null)
       foreach(array_slice($imgs, 0, count($imgs)-1) as $img) {
-      //foreach($imgs as $img) {
         echo "<img data-original='${img}' class='lazy thumbnail col-xs-12 col-sm-6 col-md-4'>";
       }
     else echo "NULLだよ〜";
@@ -65,7 +64,7 @@ $page = $_GET['page'] ?: 1;
               <span aria-hidden="true">&laquo;</span>
             </a>
           </li>
-          <?php $pages = floor((int)$imgs[count($imgs)-1] / $scraping->limit) + 1;
+          <?php $pages = ceil((int)$imgs[count($imgs)-1] / $scraping->limit);
           for($i = 1; $i <= $pages; $i++): ?>
           <li class="<?php if($i == $page) echo 'active'; ?>">
             <a href="<?php echo $scraping->paging($url, $i); ?>"><?php echo $i; ?></a>
@@ -82,24 +81,24 @@ $page = $_GET['page'] ?: 1;
 
     <?php else: ?>
     <div class="jumbotron" id="about">
-  		<h3>About ぴくこれ</h3>
-  		<p>任意のウェブページ上の画像だけを取ってきて表示するウェブアプリです。使い方は簡単で、画像を取ってきたいURLを入力欄に入れて「Collection」をクリックするだけ！それだけで画像だけ取ってきて表示します。</p>
-  		<p>製作者: <a href="https://twitter.com/_leo_isaac" target="_blank">Isaac</a></p>
-  	</div><!-- /.jumbotron -->
+      <h3>About ぴくこれ</h3>
+      <p>任意のウェブページ上の画像だけを取ってきて表示するウェブアプリです。使い方は簡単で、画像を取ってきたいURLを入力欄に入れて「Collection」をクリックするだけ！それだけで画像だけ取ってきて表示します。</p>
+      <p>製作者: <a href="https://twitter.com/_leo_isaac" target="_blank">Isaac</a></p>
+    </div><!-- /.jumbotron -->
     <?php endif; ?>
 
     <div id="detail" class="modal fade" tabindex="-1">
-			<div class="modal-dialog modal-sm">
-				<div class="modal-content">
-					<div class="modal-body">
-						<img class="img-responsive">
-						<button type="button" id="favorite" class="btn btn-primary">お気に入り</button>
-						<button type="button" id="hate" class="btn btn-warning">嫌い</button>
-						<button type="button" id="nothing" class="btn btn-default" data-dismiss="modal">何もしない</button>
-					</div><!-- /.mordal-body -->
-				</div><!-- /.modal-content -->
-			</div><!-- /.modal-dialog -->
-		</div><!-- /#detail -->
+      <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+          <div class="modal-body">
+            <img class="img-responsive">
+            <button type="button" id="favorite" class="btn btn-primary">お気に入り</button>
+            <button type="button" id="hate" class="btn btn-warning">嫌い</button>
+            <button type="button" id="nothing" class="btn btn-default" data-dismiss="modal">何もしない</button>
+          </div><!-- /.mordal-body -->
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /#detail -->
   </div><!-- /.container -->
 </body>
 </html>
