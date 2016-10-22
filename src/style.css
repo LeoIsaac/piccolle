@@ -11,6 +11,10 @@ body {
   }
 }
 
+.thumbnail {
+  cursor: pointer;
+}
+
 .paging {
   display: inline;
   width: 100%;

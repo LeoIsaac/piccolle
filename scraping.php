@@ -50,8 +50,8 @@ class Scraping {
     return $ret;
   }
 
-  public function paging($url, $page) {
-    return "?url=" . urlencode($url) . "&page=${page}";
+  public function paging($url, $page, $is2ch) {
+    return "?url=" . urlencode($url) . "&page=${page}&2ch=${is2ch}";
   }
 }
 
