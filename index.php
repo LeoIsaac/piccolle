@@ -40,7 +40,10 @@ $page = isset($_GET['page']) ? $_GET['page'] : 1;
           <span class="input-group-btn">
             <button type="submit" class="btn btn-default">収集</button>
           </span>
-          <span id="count"></span>
+          <label class="form-check-label col-xs-12">
+            <input type="checkbox" class="form-check-input" name="2ch" <?php if($_GET['2ch']) echo "checked"; ?>>
+            2ch
+          </label>
         </div>
       </form>
     </div><!--/.nav-collapse -->
@@ -49,7 +52,8 @@ $page = isset($_GET['page']) ? $_GET['page'] : 1;
   <div class="container">
     <?php if( $url ):
     $scraping = new Scraping;
-    $imgs = $scraping->collect($url, $page);
+    if($_GET['2ch']) $imgs = $scraping->collect2ch($url, $page);
+    else $imgs = $scraping->collect($url, $page);
     if($imgs != null)
       foreach(array_slice($imgs, 0, count($imgs)-1) as $img) {
         echo "<img data-original='${img}' class='lazy thumbnail col-xs-12 col-sm-6 col-md-4'>";
