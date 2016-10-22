@@ -1,7 +1,9 @@
 <?php
 require_once "scraping.php";
+require_once "ad.php";
 $url = isset($_GET['url']) ? $_GET['url'] : null;
 $page = isset($_GET['page']) ? $_GET['page'] : 1;
+$random = rand(5, 7);
 ?>
 
 <!DOCTYPE html>
@@ -40,7 +42,10 @@ $page = isset($_GET['page']) ? $_GET['page'] : 1;
           <span class="input-group-btn">
             <button type="submit" class="btn btn-default">収集</button>
           </span>
-          <span id="count"></span>
+          <label class="form-check-label col-xs-12">
+            <input type="checkbox" class="form-check-input" name="2ch" <?php if($_GET['2ch']) echo "checked"; ?>>
+            2ch
+          </label>
         </div>
       </form>
     </div><!--/.nav-collapse -->
@@ -49,29 +54,33 @@ $page = isset($_GET['page']) ? $_GET['page'] : 1;
   <div class="container">
     <?php if( $url ):
     $scraping = new Scraping;
-    $imgs = $scraping->collect($url, $page);
-    if($imgs != null)
-      foreach(array_slice($imgs, 0, count($imgs)-1) as $img) {
+    if($_GET['2ch']) $imgs = $scraping->collect2ch($url, $page);
+    else $imgs = $scraping->collect($url, $page);
+    if($imgs != null) {
+      $ad = new Ad;
+      foreach(array_slice($imgs, 0, count($imgs)-1) as $num => $img) {
         echo "<img data-original='${img}' class='lazy thumbnail col-xs-12 col-sm-6 col-md-4'>";
+        if($num % $random == 0) echo $ad->addAd();
       }
+    }
     else echo "NULLだよ〜";
     ?>
     <div class="paging">
       <nav aria-label="Page navigation">
         <ul class="pagination">
           <li class="<?php if($page == 1) echo 'disabled' ?>">
-            <a href="<?php if($page != 1) echo $scraping->paging($url, $page-1); ?>" aria-label="Previous">
+            <a href="<?php if($page != 1) echo $scraping->paging($url, $page-1, $_GET['2ch']); ?>" aria-label="Previous">
               <span aria-hidden="true">&laquo;</span>
             </a>
           </li>
           <?php $pages = ceil((int)$imgs[count($imgs)-1] / $scraping->limit);
           for($i = 1; $i <= $pages; $i++): ?>
           <li class="<?php if($i == $page) echo 'active'; ?>">
-            <a href="<?php echo $scraping->paging($url, $i); ?>"><?php echo $i; ?></a>
+            <a href="<?php echo $scraping->paging($url, $i, $_GET['2ch']); ?>"><?php echo $i; ?></a>
           </li>
           <?php endfor; ?>
           <li class="<?php if($page == $pages) echo 'disabled'; ?>">
-            <a href="<?php if($page != $pages) echo $scraping->paging($url, $page+1); ?>" aria-label="Next">
+            <a href="<?php if($page != $pages) echo $scraping->paging($url, $page+1, $_GET['2ch']); ?>" aria-label="Next">
               <span aria-hidden="true">&raquo;</span>
             </a>
           </li>
