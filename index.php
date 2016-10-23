@@ -42,10 +42,6 @@ $random = rand(5, 7);
           <span class="input-group-btn">
             <button type="submit" class="btn btn-default">収集</button>
           </span>
-          <label class="form-check-label col-xs-12">
-            <input type="checkbox" class="form-check-input" name="2ch" <?php if($_GET['2ch']) echo "checked"; ?>>
-            2ch
-          </label>
         </div>
       </form>
     </div><!--/.nav-collapse -->

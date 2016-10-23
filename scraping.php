@@ -66,8 +66,8 @@ class Scraping {
     return simpleXML_import_dom($dom);
   }
 
-  public function paging($url, $page, $is2ch) {
-    return "?url=" . urlencode($url) . "&page=${page}&2ch=${is2ch}";
+  public function paging($url, $page) {
+    return "?url=" . urlencode($url) . "&page=${page}";
   }
 }
 
