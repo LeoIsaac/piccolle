@@ -53,9 +53,8 @@ $random = rand(5, 7);
 
   <div class="container">
     <?php if( $url ):
-    $scraping = new Scraping;
-    if($_GET['2ch']) $imgs = $scraping->collect2ch($url, $page);
-    else $imgs = $scraping->collect($url, $page);
+    $scraping = new Scraping($url, $page);
+    $imgs = $scraping->collect();
     if($imgs != null) {
       $ad = new Ad;
       foreach(array_slice($imgs, 0, count($imgs)-1) as $num => $img) {

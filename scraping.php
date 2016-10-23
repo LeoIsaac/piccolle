@@ -2,52 +2,68 @@
 
 class Scraping {
   public $limit = 50;
+  public $url, $page, $pic, $count;
 
-  // スクレイピングして画像の配列を返す
-  public function collect($url, $page) {
-    $page = (int)$page;
-    if($page <= 0) return false;
-    $html = file_get_contents($url);
-    $dom = @DOMDocument::loadHTML($html);
-    $xml = simpleXML_import_dom($dom);
-    $imgs = $xml->xpath('//img');
-    $pic = 0;
-    $count = 0;
-    foreach($imgs as $img) {
-      $array = (array)$img;
-      $src = $array['@attributes']['src'];
-      if(preg_match("/^https?:\/\/(www\.)?.*\.(jpg|png)$/", $src, $matches)) {
-        $pic++;
-        if( $pic <= ($page-1) * $this->limit || $count >= $this->limit ) continue;
-        $ret[] = $matches[0];
-        $count++;
-      }
-    }
-    $ret[] = $pic;
-    return $ret;
+  function __construct($url, $page) {
+    $this->url = $url;
+    $this->page = $page;
+    $this->pic = 0;
+    $this->count = 0;
   }
 
-  public function collect2ch($url, $page) {
-    $page = (int)$page;
-    if($page <= 0) return false;
-    $html = file_get_contents($url);
-    $dom = @DOMDocument::loadHTML($html);
-    $xml = simpleXML_import_dom($dom);
+  // スクレイピングして画像の配列を返す
+  public function collect() {
+    if($this->is2ch())
+      return $this->type2ch();
+    else
+      return $this->typeNormal();
+  }
+
+  private function is2ch() {
+    if(preg_match("/^https?:\/\/(www\.)?(.*\.)?(2ch.sc|bbspink.com)(.*)$/", $this->url))
+      return true;
+    else
+      return false;
+  }
+
+  public function type2ch() {
+    $xml = $this->xml($this->url);
     $imgs = $xml->xpath('//a');
-    $pic = 0;
-    $count = 0;
     foreach($imgs as $img) {
       $array = (array)$img;
       $src = $array['@attributes']['href'];
       if(preg_match("/^https?:\/\/(www\.)?(2ch.io\/|pinktower.com\/\?https?:\/\/)?(.*\.(jpg|png))$/", $src, $matches)) {
-        $pic++;
-        if( $pic <= ($page-1) * $this->limit || $count >= $this->limit ) continue;
+        $this->pic++;
+        if( $this->pic <= ($this->page-1) * $this->limit || $this->count >= $this->limit ) continue;
         $ret[] = "http://" . $matches[3];
-        $count++;
+        $this->count++;
       }
     }
-    $ret[] = $pic;
+    $ret[] = $this->pic;
     return $ret;
+  }
+
+  public function typeNormal() {
+    $xml = $this->xml($this->url);
+    $imgs = $xml->xpath('//img');
+    foreach($imgs as $img) {
+      $array = (array)$img;
+      $src = $array['@attributes']['src'];
+      if(preg_match("/^https?:\/\/(www\.)?.*\.(jpg|png)$/", $src)) {
+        $this->pic++;
+        if( $this->pic <= ($page-1) * $this->limit || $this->count >= $this->limit ) continue;
+        $ret[] = $src;
+        $this->count++;
+      }
+    }
+    $ret[] = $this->pic;
+    return $ret;
+  }
+
+  public function xml($url) {
+    $html = file_get_contents($url);
+    $dom = @DOMDocument::loadHTML($html);
+    return simpleXML_import_dom($dom);
   }
 
   public function paging($url, $page, $is2ch) {
