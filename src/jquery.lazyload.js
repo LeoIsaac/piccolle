@@ -128,7 +128,9 @@
                             */
 
                             if ($self.is("img")) {
-                                $self.attr("src", original);
+                                // hate配列にあれば表示しない
+                                if(hate.indexOf(original) == -1)
+                                    $self.attr("src", original);
                             } else {
                               $self.css("background-image", "url('" + original + "')");
                             }

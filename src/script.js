@@ -1,6 +1,7 @@
-storageFlag = false;
+var storageFlag = false;
 var fav = [];
 var hate = [];
+var kari = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXYzh8+PB/AAffA0nNPuCLAAAAAElFTkSuQmCC";
 init();
 
 $(function() {
@@ -26,6 +27,9 @@ $(function() {
   $('#hate').click(function() {
     console.log("Hate: " + src);
     localStorage[src] = "hate";
+    var selector = "img[src = '" + src + "']";
+    $(selector).attr('src', kari);
+    $('#detail').modal('hide');
   });
 });
 
