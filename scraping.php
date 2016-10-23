@@ -20,19 +20,19 @@ class Scraping {
   }
 
   private function is2ch() {
-    if(preg_match("/^https?:\/\/(www\.)?(.*\.)?(2ch.sc|bbspink.com)(.*)$/", $this->url))
+    if(preg_match("/^https?:\/\/(www\.)?(.*\.)?(2ch\.sc|bbspink\.com)(.*)$/", $this->url))
       return true;
     else
       return false;
   }
 
-  public function type2ch() {
+  private function type2ch() {
     $xml = $this->xml($this->url);
     $imgs = $xml->xpath('//a');
     foreach($imgs as $img) {
       $array = (array)$img;
       $src = $array['@attributes']['href'];
-      if(preg_match("/^https?:\/\/(www\.)?(2ch.io\/|pinktower.com\/\?https?:\/\/)?(.*\.(jpg|png))$/", $src, $matches)) {
+      if(preg_match("/^https?:\/\/(www\.)?(2ch\.io\/|pinktower\.com\/\?https?:\/\/)?(.*\.(jpg|png))$/", $src, $matches)) {
         $this->pic++;
         if( $this->pic <= ($this->page-1) * $this->limit || $this->count >= $this->limit ) continue;
         $ret[] = "http://" . $matches[3];
@@ -43,7 +43,7 @@ class Scraping {
     return $ret;
   }
 
-  public function typeNormal() {
+  private function typeNormal() {
     $xml = $this->xml($this->url);
     $imgs = $xml->xpath('//img');
     foreach($imgs as $img) {
@@ -60,7 +60,7 @@ class Scraping {
     return $ret;
   }
 
-  public function xml($url) {
+  private function xml($url) {
     $html = file_get_contents($url);
     $dom = @DOMDocument::loadHTML($html);
     return simpleXML_import_dom($dom);
