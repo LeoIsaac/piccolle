@@ -20,6 +20,10 @@ $random = rand(5, 7);
   <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <script src="src/jquery.lazyload.js"></script>
+  <!-- contextMenu -->
+  <link rel="stylesheet" href="src/contextMenu/jquery.contextMenu.min.css">
+  <script src="src/contextMenu/jquery.contextMenu.min.js"></script>
+  <script src="src/contextMenu/jquery.ui.position.min.js"></script>
   <script src="src/script.js"></script>
 </head>
 

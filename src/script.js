@@ -26,10 +26,31 @@ $(function() {
   });
   $('#hate').click(function() {
     console.log("Hate: " + src);
-    localStorage[src] = "hate";
-    var selector = "img[src = '" + src + "']";
-    $(selector).attr('src', kari);
-    $('#detail').modal('hide');
+    addHate(src);
+  });
+
+  //contextMenu
+  $.contextMenu({
+    selector: '.thumbnail',
+    items: {
+      "fav" : {
+        name: "お気に入り",
+        icon: "fa-heart",
+        callback: function(key, opt) {
+          var src = opt.$trigger.attr('src');
+          addFav(src);
+        }
+      },
+      "sep" : "---------",
+      "hate": {
+        name: "嫌い",
+        icon: "fa-thumbs-o-down",
+        callback: function(key, opt) {
+          var src = opt.$trigger.attr('src');
+          addHate(src);
+        }
+      }
+    }
   });
 });
 
@@ -47,4 +68,15 @@ function init() {
     alert("このブラウザはHTML5 WebStorageApiが使用できないため、お気に入り保存機能が使えません。");
     storageFlag = false;
   }
+}
+
+function addFav(src) {
+  localStorage[src] = "fav";
+}
+
+function addHate(src) {
+  localStorage[src] = "hate";
+  var selector = "img[src = '" + src + "']";
+  $(selector).attr('src', kari);
+  $('#detail').modal('hide');
 }
