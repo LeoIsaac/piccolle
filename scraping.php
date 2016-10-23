@@ -51,7 +51,7 @@ class Scraping {
       $src = $array['@attributes']['src'];
       if(preg_match("/^https?:\/\/(www\.)?.*\.(jpg|png)$/", $src)) {
         $this->pic++;
-        if( $this->pic <= ($page-1) * $this->limit || $this->count >= $this->limit ) continue;
+        if( $this->pic <= ($this->page-1) * $this->limit || $this->count >= $this->limit ) continue;
         $ret[] = $src;
         $this->count++;
       }
