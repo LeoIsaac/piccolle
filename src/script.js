@@ -22,7 +22,7 @@ $(function() {
   });
   $('#favorite').click(function() {
     console.log("Fav: " + src);
-    localStorage[src] = "fav";
+    addFav(src);
   });
   $('#hate').click(function() {
     console.log("Hate: " + src);

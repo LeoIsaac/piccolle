@@ -2,7 +2,7 @@
 
 class Scraping {
   public $limit = 50;
-  public $url, $page, $pic, $count;
+  private $url, $page, $pic, $count;
 
   function __construct($url, $page) {
     $this->url = $url;
