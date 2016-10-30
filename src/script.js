@@ -33,7 +33,7 @@ $(function() {
 
   //contextMenu
   $.contextMenu({
-    selector: '.thumbnail',
+    selector: '.lazy',
     items: {
       "fav" : {
         name: "お気に入り",
