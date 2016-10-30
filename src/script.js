@@ -9,6 +9,8 @@ $(function() {
     threshold: 1000
   });
 
+  showFav();
+
   //Modal
   $('img.lazy').click(function() {
     src = $(this).attr('data-original');
@@ -72,6 +74,7 @@ function init() {
 
 function addFav(src) {
   localStorage[src] = "fav";
+  $('#detail').modal('hide');
 }
 
 function addHate(src) {
@@ -79,4 +82,12 @@ function addHate(src) {
   var selector = "img[src = '" + src + "']";
   $(selector).attr('src', kari);
   $('#detail').modal('hide');
+}
+
+function showFav() {
+  if(!$('#favList')[0]) return;
+  for(var i in fav) {
+    var $img = "<img src='" + fav[i] + "' class='thumbnail col-xs-12 col-sm-6 col-md-4'>";
+    $('#favList').append($img);
+  }
 }

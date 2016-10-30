@@ -68,18 +68,18 @@ $random = rand(5, 7);
       <nav aria-label="Page navigation">
         <ul class="pagination">
           <li class="<?php if($page == 1) echo 'disabled' ?>">
-            <a href="<?php if($page != 1) echo $scraping->paging($url, $page-1, $_GET['2ch']); ?>" aria-label="Previous">
+            <a href="<?php if($page != 1) echo $scraping->paging($url, $page-1); ?>" aria-label="Previous">
               <span aria-hidden="true">&laquo;</span>
             </a>
           </li>
           <?php $pages = ceil((int)$imgs[count($imgs)-1] / $scraping->limit);
           for($i = 1; $i <= $pages; $i++): ?>
           <li class="<?php if($i == $page) echo 'active'; ?>">
-            <a href="<?php echo $scraping->paging($url, $i, $_GET['2ch']); ?>"><?php echo $i; ?></a>
+            <a href="<?php echo $scraping->paging($url, $i); ?>"><?php echo $i; ?></a>
           </li>
           <?php endfor; ?>
           <li class="<?php if($page == $pages) echo 'disabled'; ?>">
-            <a href="<?php if($page != $pages) echo $scraping->paging($url, $page+1, $_GET['2ch']); ?>" aria-label="Next">
+            <a href="<?php if($page != $pages) echo $scraping->paging($url, $page+1); ?>" aria-label="Next">
               <span aria-hidden="true">&raquo;</span>
             </a>
           </li>
@@ -93,6 +93,7 @@ $random = rand(5, 7);
       <p>任意のウェブページ上の画像だけを取ってきて表示するウェブアプリです。使い方は簡単で、画像を取ってきたいURLを入力欄に入れて「Collection」をクリックするだけ！それだけで画像だけ取ってきて表示します。</p>
       <p>製作者: <a href="https://twitter.com/_leo_isaac" target="_blank">Isaac</a></p>
     </div><!-- /.jumbotron -->
+    <div id="favList"></div>
     <?php endif; ?>
 
     <div id="detail" class="modal fade" tabindex="-1">
