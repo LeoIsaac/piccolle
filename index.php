@@ -67,19 +67,19 @@ $random = rand(5, 7);
     <div class="paging">
       <nav aria-label="Page navigation">
         <ul class="pagination">
-          <li class="<?php if($page == 1) echo 'disabled' ?>">
-            <a href="<?php if($page != 1) echo $scraping->paging($url, 1); ?>" aria-label="Previous">
+          <li class="<?php if($page <= 2+1) echo 'disabled' ?>">
+            <a <?php if($page > 2+1) echo 'href="' . $scraping->paging($url, 1) . '" data-toggle="tooltip" data-original-title="1"'; ?> aria-label="Previous">
               <span aria-hidden="true">&laquo;</span>
             </a>
           </li>
           <?php $pages = ceil((int)$imgs[count($imgs)-1] / $scraping->limit);
-          for($i = 1; $i <= $pages; $i++): ?>
+          for($i = $page-2; $i <= $page+2; $i++): if($i > 0 && $i <= $pages): ?>
           <li class="<?php if($i == $page) echo 'active'; ?>">
             <a href="<?php echo $scraping->paging($url, $i); ?>"><?php echo $i; ?></a>
           </li>
-          <?php endfor; ?>
-          <li class="<?php if($page == $pages) echo 'disabled'; ?>">
-            <a href="<?php if($page != $pages) echo $scraping->paging($url, $pages); ?>" aria-label="Next">
+          <?php endif; endfor; ?>
+          <li class="<?php if($page >= $pages - 2) echo 'disabled'; ?>">
+            <a <?php if($page < $pages - 2) echo 'href="' . $scraping->paging($url, $pages) . '" data-toggle="tooltip" data-original-title="' . $pages . '"'; ?> aria-label="Next" >
               <span aria-hidden="true">&raquo;</span>
             </a>
           </li>
