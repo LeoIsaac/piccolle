@@ -68,7 +68,7 @@ $random = rand(5, 7);
       <nav aria-label="Page navigation">
         <ul class="pagination">
           <li class="<?php if($page == 1) echo 'disabled' ?>">
-            <a href="<?php if($page != 1) echo $scraping->paging($url, $page-1); ?>" aria-label="Previous">
+            <a href="<?php if($page != 1) echo $scraping->paging($url, 1); ?>" aria-label="Previous">
               <span aria-hidden="true">&laquo;</span>
             </a>
           </li>
@@ -79,7 +79,7 @@ $random = rand(5, 7);
           </li>
           <?php endfor; ?>
           <li class="<?php if($page == $pages) echo 'disabled'; ?>">
-            <a href="<?php if($page != $pages) echo $scraping->paging($url, $page+1); ?>" aria-label="Next">
+            <a href="<?php if($page != $pages) echo $scraping->paging($url, $pages); ?>" aria-label="Next">
               <span aria-hidden="true">&raquo;</span>
             </a>
           </li>

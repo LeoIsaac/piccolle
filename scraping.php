@@ -48,7 +48,7 @@ class Scraping {
       foreach($line as $src) {
         if(preg_match("/^ttp.*\.(jpg|png)/", $src)) {
           $this->pic++;
-          if( $this->count >= $this->limit ) continue;
+          if( $this->pic <= ($this->page-1) * $this->limit || $this->count >= $this->limit ) continue;
           $ret[] = 'h' . $src;
           $this->count++;
         }
