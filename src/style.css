@@ -16,6 +16,7 @@ body {
 }
 
 .paging {
-  display: inline;
+  display: inline-block;
   width: 100%;
+  text-align: center;
 }

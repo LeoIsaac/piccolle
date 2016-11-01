@@ -50,7 +50,7 @@ class Scraping {
           $this->pic++;
           if( $this->count >= $this->limit ) continue;
           $ret[] = 'h' . $src;
-          //$this->count++;
+          $this->count++;
         }
       }
     }
