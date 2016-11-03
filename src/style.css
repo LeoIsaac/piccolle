@@ -15,6 +15,10 @@ body {
   cursor: pointer;
 }
 
+iframe {
+  max-width: 100%;
+}
+
 .paging {
   display: inline-block;
   width: 100%;
