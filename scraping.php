@@ -21,7 +21,7 @@ class Scraping {
 
   // URLから2chかそうでないかを判別し、2chならtrue、それ以外ならfalseを返す
   private function is2ch() {
-    if(preg_match("/^https?:\/\/(www\.)?(.*\.)?(2ch\.sc|bbspink\.com)(.*)$/", $this->url))
+    if(preg_match("/^https?:\/\/(www\.)?(.*\.)?(2ch\.sc|2ch\.net|bbspink\.com)(.*)$/", $this->url))
       return true;
     else
       return false;
