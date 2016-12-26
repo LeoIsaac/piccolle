@@ -81,6 +81,7 @@ function addFav(src) {
 }
 
 function addHate(src) {
+  if(!window.confirm('以降表示されなくなります')) return;
   localStorage[src] = "hate";
   var selector = "img[src = '" + src + "']";
   $(selector).attr('src', kari);
